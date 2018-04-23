@@ -116,4 +116,4 @@ def getNormalizedFeatures(img, display=False):
                 data[key] = points[faceRegions[key]]
             else:
                 data[key] = points
-        return data
+        return faceImg, data

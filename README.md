@@ -12,7 +12,7 @@ _*Only tested in python3_
 ### Install dependcy
 
 ```bash
-pip install -r requirement.txt
+pip install --user -r requirement.txt
 ```
 
 ### Gather data

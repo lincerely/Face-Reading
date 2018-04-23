@@ -6,15 +6,18 @@ from sklearn.externals import joblib
 import numpy as np
 import cv2
 import argparse
-import json
+import json, time
 from textwrap import fill
 
 from imutils.convenience import url_to_image 
+import matplotlib.pyplot as plt
 
 TEST_IMAGE_PATH="test_imgs/test.png"
 SAVE_PATH="data/trained_svms.pkl"
 
 ap = argparse.ArgumentParser()
+ap.add_argument("-c", "--camera", default=False, action="store_true",
+	help="get input from camera")
 ap.add_argument("-i", "--image", type=str, default=None,
 	help="input image")
 ap.add_argument("-u", "--url", type=str, default=None,
@@ -28,9 +31,12 @@ with open('data/analysis.json') as f:
 
 
 def apply(img):
-    data = getNormalizedFeatures(img, False)
+    faceImg, data = getNormalizedFeatures(img, False)
 
     svms = joblib.load(SAVE_PATH)
+
+    plt.imshow(faceImg)
+    plt.show()
 
     for region_name, points in data.items():
         X = [points.flatten()]
@@ -46,14 +52,29 @@ def apply(img):
                 for feature in region["features"]:
                     if feature["name"] == y:
                         print(fill(feature["analysis"], width=18))
-
-
         print(" ")
+
+def getImgFromCam():
+    vs = VideoStream(usePiCamera=False).start()
+    time.sleep(2.0)
+
+    while True:
+        frame = vs.read()
+        frame = imutils.resize(frame, width=400)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+ 
+        # detect faces in the grayscale frame
+        rects = detector(gray, 0)
+
+        if rects is not None and len(rects) > 0:
+            return frame
 
 
 if __name__ == '__main__':
 
-    if args["image"] is not None:
+    if args["camera"]:
+        img = getImgFromCam()
+    elif args["image"] is not None:
         img = cv2.imread(args["image"])
     elif args["url"] is not None:
         img = url_to_image(args["url"])

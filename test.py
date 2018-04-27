@@ -9,7 +9,7 @@ import argparse
 import json, time
 from textwrap import fill
 
-from imutils.convenience import url_to_image 
+from imutils.convenience import url_to_image
 import matplotlib.pyplot as plt
 
 TEST_IMAGE_PATH="test_imgs/test.png"
@@ -35,7 +35,7 @@ def apply(img):
 
     svms = joblib.load(SAVE_PATH)
 
-    plt.imshow(faceImg)
+    plt.imshow(imutils.opencv2matplotlib(faceImg))
     plt.show()
 
     for region_name, points in data.items():
@@ -62,7 +62,7 @@ def getImgFromCam():
         frame = vs.read()
         frame = imutils.resize(frame, width=400)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
- 
+
         # detect faces in the grayscale frame
         rects = detector(gray, 0)
 

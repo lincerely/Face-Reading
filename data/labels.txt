@@ -1,0 +1,5 @@
+facedata/face.svm 圓臉 瓜子臉 由字臉 國字臉 甲字臉
+eyebrowsdata/eyebrows.svm 連心眉 一字眉 新月眉 八字眉 大刀眉
+eyesdata/eyes.svm 三角眼 丹鳳眼 桃花眼 垂眼 圓眼
+nosedata/nose.svm 朝天鼻 懸膽鼻 截筒鼻 鷹鉤鼻
+mouthdata/mouth.svm 厚嘴唇 小嘴唇 元寶嘴

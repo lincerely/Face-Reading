@@ -10,7 +10,7 @@ from glob import glob
 import numpy as np
 
 #config
-USE_REGION = False # use part of the feature to train the svm, e.g. only use mouth feature points
+USE_REGION = True # use part of the feature to train the svm, e.g. only use mouth feature points
 LANDMARK_PATH = "data/shape_predictor_68_face_landmarks.dat"
 
 detector = dlib.get_frontal_face_detector()
